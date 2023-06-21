@@ -1,0 +1,51 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel='stylesheet', href='/style.css')
+    title Courses
+    script.
+      function removeUser(userId) {
+        fetch(`/remove/${userId}`, { method: 'DELETE' })
+          .then(response => {
+            if (response.ok) {
+              window.location.reload();
+            } else {
+              throw new Error('Network response was not ok');
+            }
+          }).catch(error => {
+          console.error('There was an error!', error);
+        });
+      }
+
+  body
+    h1 Admin page
+    h2 Add courses
+    form(action="/add" class="add" method="POST")
+      label(for="Name") Name:
+      input(id="Name" name="Name" placeholder="Enter name")
+      label(for="age") Age:
+      input(type="number", min="1",id="age" name="age" placeholder="Enter age")
+      label(for="status") Status:
+      input(id="status" name="status" placeholder="Enter status")
+      label(for="img") Link for avatar:
+      input(id="img" name="avatar" placeholder="Enter avatar link")
+      button(type="submit") Add Course
+    h2(class="corses-list") All courses
+  #courses
+    if users.length
+      each user in users 
+        .user
+          .img
+            img(src=`${user.avatar}`, alt="")
+          .name  #{user.Name}
+          .status #{user.status}
+          .age #{user.age} 
+          .course-btn 
+            a(href=`/edit/${user._id}`) 
+              button Edit
+            button(type = "button" onClick=`removeUser('${user._id}')`) Delete 
+    else 
+      h3 Empty

@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel='stylesheet', href='/style.css')
+        title Users 
+        h1 Edit #{user.name}
+        form(action=`/change-user/${user._id}` class="add" method="POST")
+          label(for="Name") Name:
+          input(id="Name" name="Name" placeholder="Enter name" value=`${user.name}`)
+          label(for="age") Age:
+          input(type="number", min="1",id="age" name="age" placeholder="Enter age" value=`${user.age}`)
+          label(for="status") Status:
+          input(id="status" name="status" placeholder="Enter status" value=`${user.status}`)
+          label(for="img") Link for avatar:
+          input(id="img" name="avatar" placeholder="Enter avatar link" value=`${user.avatar}`)
+          button(type="submit") Edit Course
